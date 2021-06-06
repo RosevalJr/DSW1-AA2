@@ -29,7 +29,7 @@ public class Aa2Application {
 	@Bean
 	public CommandLineRunner demo(IUsuarioDAO usuarioDAO, IProfissionalDAO profissionalDAO, IEmpresaDAO empresaDAO, IVagaDAO vagaDAO, ICandidaturaDAO candidaturaDAO) {
 		return (args) -> {
-			Usuario u1 = new Usuario();
+			/*Usuario u1 = new Usuario();
 			u1.setUsername("adminaaa");
 			u1.setPassword("adminaaa");
 			u1.setName("Administrador");
@@ -51,7 +51,7 @@ public class Aa2Application {
 			u3.setName("Fulano Silva");
 			u3.setRole("ROLE_USER");
 			u3.setEnabled(true);
-			usuarioDAO.save(u3);
+			usuarioDAO.save(u3);*/
 		};
 	}
 

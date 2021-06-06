@@ -4,18 +4,27 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "Profissional")
+@Table(
+		   name = "Profissional", 
+		   uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id"})}
+		)
 public class Profissional extends AbstractEntity<Long>{
+	
+	@Id
+	@Column(name="usuario_id")
+	private Long id;
 	
 	@NotBlank(message = "{NotBlank.profissional.cpf}")
 	@Size(min = 14, max = 14, message = "{Size.profissional.cpf}")

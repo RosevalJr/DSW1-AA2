@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "Candidatura")
+@Table(
+		   name = "Candidatura", 
+		   uniqueConstraints = {@UniqueConstraint(columnNames = {"vaga_id", "profissional_id"})}
+		)
 public class Candidatura extends AbstractEntity<Long>{
 	
 	@Column(nullable = false, length = 60)
@@ -22,7 +25,8 @@ public class Candidatura extends AbstractEntity<Long>{
     
 	@NotNull(message = "{NotNull.candidatura.vaga}")
 	@ManyToOne
-	@JoinColumn(name = "vaga_id")
+	
+	@JoinColumn(name ="vaga_id")
 	private Vaga vaga;
 	
 	@NotNull(message = "{NotNull.candidatura.profissional}")
