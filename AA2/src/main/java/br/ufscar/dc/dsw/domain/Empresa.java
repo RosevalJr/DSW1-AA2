@@ -4,22 +4,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(
-		   name = "Empresa", 
-		   uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id"})}
-		)
-public class Empresa extends AbstractEntity<Long>{
+@Table(name = "Empresa")
+public class Empresa extends Usuario {
 	
 	@NotBlank(message = "{NotBlank.empresa.cnpj}")
 	@Size(min = 18, max = 18, message = "{Size.empresa.cnpj}")
@@ -34,19 +27,14 @@ public class Empresa extends AbstractEntity<Long>{
 	@Column(nullable = false, length = 256)
 	private String descricao;
     
-	@NotNull(message = "{NotNull.profissional.usuario}")
-	@OneToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
-	
 	@OneToMany(mappedBy = "empresa")
 	private List<Vaga> vagas;
 	
-	public String getCnpj() {
+	public String getCNPJ() {
 		return CNPJ;
 	}
 
-	public void setCnpj(String CNPJ) {
+	public void setCNPJ(String CNPJ) {
 		this.CNPJ = CNPJ;
 	}
 	
@@ -65,15 +53,7 @@ public class Empresa extends AbstractEntity<Long>{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
+		
 	public List<Vaga> getVagas() {
 		return vagas;
 	}

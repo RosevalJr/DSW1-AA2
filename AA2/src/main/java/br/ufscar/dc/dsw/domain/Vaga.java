@@ -9,16 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(
-		   name = "Vaga", 
-		   uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id"})}
-		)
+@Table(name = "Vaga")
 public class Vaga extends AbstractEntity<Long>{
 	
 	@NotBlank(message = "{NotBlank.vaga.descricao}")
@@ -35,7 +31,7 @@ public class Vaga extends AbstractEntity<Long>{
 	
 	@NotNull(message = "{NotNull.vaga.empresa}")
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 	
 	@OneToMany(mappedBy = "vaga")
