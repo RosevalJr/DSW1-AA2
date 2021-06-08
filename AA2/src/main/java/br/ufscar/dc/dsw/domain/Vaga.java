@@ -1,6 +1,5 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,7 +26,7 @@ public class Vaga extends AbstractEntity<Long>{
     
 	@NotNull(message = "{NotNull.vaga.remuneracao}")
 	@Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
-	private BigDecimal remuneracao;
+	private Double remuneracao;
 	
 	@NotNull(message = "{NotNull.vaga.empresa}")
 	@ManyToOne
@@ -53,11 +52,11 @@ public class Vaga extends AbstractEntity<Long>{
 		this.dataLimite = dataLimite;
 	}
 	
-	public BigDecimal getRemuneracao() {
+	public Double getRemuneracao() {
 		return remuneracao;
 	}
 
-	public void setPreco(BigDecimal remuneracao) {
+	public void setRemuneracao(Double remuneracao) {
 		this.remuneracao = remuneracao;
 	}
 	

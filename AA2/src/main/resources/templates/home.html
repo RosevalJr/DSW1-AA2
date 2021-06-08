@@ -13,14 +13,14 @@
 			<span th:inline="text">[[${#httpServletRequest.remoteUser}]]!</span>
 		</h1>
 		
-		<p><a th:href="@{/}"><span th:text="#{home.message.1}"></a></p>
+		<p><a th:href="@{/}"><span th:text="#{home.message.1}"></span></a></p>
 		
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
-			<p><a th:href="@{/admin}"><span th:text="#{home.message.2}"></a></p>
+			<p><a th:href="@{/admin}"><span th:text="#{home.message.2}"></span></a></p>
 		</div>
 
 		<div sec:authorize="hasRole('ROLE_USER')">
-			<p><a th:href="@{/user}"><span th:text="#{home.message.3}"></a></p>
+			<p><a th:href="@{/user}"><span th:text="#{home.message.3}"></span></a></p>
 		</div>
 	</div>
 </body>
