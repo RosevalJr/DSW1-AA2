@@ -1,6 +1,12 @@
 package br.ufscar.dc.dsw.domain;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +32,7 @@ public class Vaga extends AbstractEntity<Long>{
     
 	@NotNull(message = "{NotNull.vaga.remuneracao}")
 	@Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
-	private Double remuneracao;
+	private BigDecimal remuneracao;
 	
 	@NotNull(message = "{NotNull.vaga.empresa}")
 	@ManyToOne
@@ -52,11 +58,11 @@ public class Vaga extends AbstractEntity<Long>{
 		this.datalimite = dataLimite;
 	}
 	
-	public Double getRemuneracao() {
+	public BigDecimal getRemuneracao() {
 		return remuneracao;
 	}
 
-	public void setRemuneracao(Double remuneracao) {
+	public void setRemuneracao(BigDecimal remuneracao) {
 		this.remuneracao = remuneracao;
 	}
 	
@@ -74,5 +80,30 @@ public class Vaga extends AbstractEntity<Long>{
 	
 	public void setCandidaturas(List<Candidatura> candidaturas) {
 		this.candidaturas = candidaturas;
+	}
+	
+	/* Checa se a vaga ainda esta aberta. */
+	public boolean isAberta() throws ParseException {
+		SimpleDateFormat formato;
+		Date dateLimite;
+
+		formato = new SimpleDateFormat("dd/MM/yyyy");
+		
+		
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+        String formatted = format1.format(cal.getTime());
+        
+        
+		dateLimite = formato.parse(datalimite);
+		Date dateHoje = formato.parse(formatted);
+		
+		
+		if(dateHoje.compareTo(dateLimite) > 0) {
+			return false;
+		}else if(dateHoje.compareTo(dateLimite) < 0) {
+			return true;
+		}else return true;
+		
 	}
 }

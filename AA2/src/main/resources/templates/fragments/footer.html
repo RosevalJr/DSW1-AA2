@@ -1,37 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<head>
+<meta charset="UTF-8">
+</head>
 <body>
-	<th:block th:fragment="footer">
-		<footer>
-		<hr/>
-			<div class="container">
-				<div class="col-md-6 col-md-offset-3">
-					<div sec:authorize="isAuthenticated()">
-						<form th:action="@{/logout}" method="post">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-9 col-sm-offset-3">
-										<b><span th:text="#{login.username}"></span>:</b> <span sec:authentication="name"></span> | 
-										<b><span th:text="#{user.role}"></span>:</b> <span sec:authentication="principal.authorities"></span>
-									</div>
-									<div class="col-sm-3 col-sm-offset-3">
-										<input type="submit" name="login-submit" id="login-submit"
-											class="form-control btn btn-info" value="Logout">
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
+	<footer class="layout-footer" th:fragment="rodape">
+		<div class="container">
+
+			<div class="footer-copy">
+				<div sec:authorize="isAuthenticated()">
+					<span th:text="#{login.username}"></span>: <span
+						sec:authentication="name"></span> | <span th:text="#{user.role}"></span>:
+					<span sec:authentication="principal.authorities"></span> <br />
+				<span>&copy; Departamento de Computação &copy;</span>
 				</div>
 			</div>
-		</footer>
-
-		<script type="text/javascript"
-			th:src="@{/webjars/jquery/jquery.min.js/}"></script>
-		<script type="text/javascript"
-			th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-	</th:block>
+		</div>
+	</footer>
 </body>
 </html>
+

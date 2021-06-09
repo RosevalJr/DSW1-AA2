@@ -20,7 +20,6 @@ public class Usuario extends AbstractEntity<Long> {
     private String username;
     
 	@NotBlank(message = "{NotBlank.usuario.password}")
-	@Size(min = 5, max = 64, message = "{Size.usuario.password}")
     @Column(nullable = false, length = 64)
     private String password;
        

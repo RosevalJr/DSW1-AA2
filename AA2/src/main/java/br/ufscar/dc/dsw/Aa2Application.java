@@ -1,9 +1,12 @@
 package br.ufscar.dc.dsw;
 
+import java.math.BigDecimal;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.ufscar.dc.dsw.dao.ICandidaturaDAO;
 import br.ufscar.dc.dsw.dao.IEmpresaDAO;
@@ -24,14 +27,14 @@ public class Aa2Application {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(IUsuarioDAO usuarioDAO, IProfissionalDAO profissionalDAO, IEmpresaDAO empresaDAO, IVagaDAO vagaDAO, ICandidaturaDAO candidaturaDAO) {
+	public CommandLineRunner demo(IUsuarioDAO usuarioDAO, BCryptPasswordEncoder encoder, IProfissionalDAO profissionalDAO, IEmpresaDAO empresaDAO, IVagaDAO vagaDAO, ICandidaturaDAO candidaturaDAO) {
 		return (args) -> {
 						// Populando banco de dados.
 						
 						// Inserindo administrador
 						Usuario u1 = new Usuario();
 						u1.setUsername("admin");
-						u1.setPassword("admin");
+						u1.setPassword(encoder.encode("admin"));
 						u1.setName("Carlos da Silva");
 						u1.setRole("admin");
 						u1.setEnabled(true);
@@ -44,7 +47,7 @@ public class Aa2Application {
 						p1.setNascimento("25/06/2000");
 						p1.setTelefone("5539806798860");
 						p1.setUsername("rdmaljr@hotmail.com");
-						p1.setPassword("123password");
+						p1.setPassword(encoder.encode("123password"));
 						p1.setName("Roseval Junior");
 						p1.setRole("userProfissional");
 						p1.setEnabled(true);
@@ -56,7 +59,7 @@ public class Aa2Application {
 						p2.setNascimento("15/04/1999");
 						p2.setTelefone("5577867134261");
 						p2.setUsername("marcela@hotmail.com");
-						p2.setPassword("123password");
+						p2.setPassword(encoder.encode("123password"));
 						p2.setName("Marcela Ribeiro");
 						p2.setRole("userProfissional");
 						p2.setEnabled(true);
@@ -67,7 +70,7 @@ public class Aa2Application {
 						p3.setSexo("Masculino");
 						p3.setNascimento("02/01/1995");
 						p3.setTelefone("5579768042305");
-						p3.setUsername("jose@estudante.ufscar.br");
+						p3.setUsername(encoder.encode("jose@estudante.ufscar.br"));
 						p3.setPassword("123password");
 						p3.setName("José da Silva");
 						p3.setRole("userProfissional");
@@ -80,7 +83,7 @@ public class Aa2Application {
 						e1.setDescricao("Essa empresa vende windows.");
 						e1.setCidade("São Carlos");
 						e1.setUsername("microsoft@hotmail.com");
-						e1.setPassword("123password");
+						e1.setPassword(encoder.encode("123password"));
 						e1.setName("Microsoft");
 						e1.setRole("userEmpresa");
 						e1.setEnabled(true);
@@ -91,7 +94,7 @@ public class Aa2Application {
 						e2.setDescricao("Essa empresa vende programas;");
 						e2.setCidade("Curitiba");
 						e2.setUsername("roseval@estudante.ufscar.br");
-						e2.setPassword("123password");
+						e2.setPassword(encoder.encode("123password"));
 						e2.setName("Programas .Inc");
 						e2.setRole("userEmpresa");
 						e2.setEnabled(true);
@@ -100,29 +103,29 @@ public class Aa2Application {
 						// Inserindo vagas.
 						Vaga v1 = new Vaga();
 						v1.setDescricao("Vendedor de windows.");
-						v1.setRemuneracao(980.50);
+						v1.setRemuneracao(BigDecimal.valueOf(980.50));
 						v1.setDatalimite("02/06/2021");
 						v1.setEmpresa(e1);
 						vagaDAO.save(v1);
 						
 						Vaga v2 = new Vaga();
 						v2.setDescricao("Vendedor de programas.");
-						v2.setRemuneracao(650.20);
+						v2.setRemuneracao(BigDecimal.valueOf(650.20));
 						v2.setDatalimite("10/06/2021");
 						v2.setEmpresa(e2);
 						vagaDAO.save(v2);
 						
 						Vaga v3 = new Vaga();
 						v3.setDescricao("Essa aqui vai dar fechada!");
-						v3.setRemuneracao(15.40);
+						v3.setRemuneracao(BigDecimal.valueOf(15.40));
 						v3.setDatalimite("01/01/2020");
 						v3.setEmpresa(e2);
 						vagaDAO.save(v3);
 						
 						Vaga v4 = new Vaga();
 						v4.setDescricao("Mesmo dia fica aberta!");
-						v4.setRemuneracao(300.26);
-						v4.setDatalimite("10/06/2021");
+						v4.setRemuneracao(BigDecimal.valueOf(300.26));
+						v4.setDatalimite("09/06/2021");
 						v4.setEmpresa(e2);
 						vagaDAO.save(v4);
 						

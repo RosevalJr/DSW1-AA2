@@ -7,11 +7,9 @@ import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import br.ufscar.dc.dsw.security.UsuarioDetailsServiceImpl;
 
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public DaoAuthenticationProvider authenticationProvider() {
 	   DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 	   authProvider.setUserDetailsService(userDetailsService());
-	   authProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+	   authProvider.setPasswordEncoder(passwordEncoder());
 	
 	   return authProvider;
 	}
@@ -43,19 +41,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	   http.authorizeRequests()
-	   		.antMatchers("/", "/index", "/error").permitAll()
-	   		.antMatchers("/login/**", "/js/**", "/css/**", "/vagas/**").permitAll()
-	          	.antMatchers("/image/**", "/webjars/**").permitAll()
-	   		.antMatchers("/admin/**").hasRole("ADMIN")
-	   		.antMatchers("/user/**").hasRole("USER")
-	   		.anyRequest().authenticated()
-	   	.and()
-	   		.formLogin()
-	   		.loginPage("/login")
-	   		.permitAll()
-	   	.and()
-	   		.logout()
-	   		.logoutSuccessUrl("/")
-	   		.permitAll();
+		.antMatchers("/error", "/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**", "/vagas/listar").permitAll()
+		.antMatchers("/compras/**").hasRole("USER")
+		.antMatchers("/editoras/**", "/livros/**", "/usuarios/**").hasRole("ADMIN")
+		.anyRequest().authenticated()
+	.and()
+		.formLogin()
+		.loginPage("/login")
+		.permitAll()
+	.and()
+		.logout()
+		.logoutSuccessUrl("/")
+		.permitAll();
 	}
 }
