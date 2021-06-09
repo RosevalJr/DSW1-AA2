@@ -22,7 +22,7 @@ public class Vaga extends AbstractEntity<Long>{
 	
     @NotBlank(message = "{NotBlank.vaga.datalimite}")
 	@Column(nullable = false, length = 19)
-	private String dataLimite;
+	private String datalimite;
     
 	@NotNull(message = "{NotNull.vaga.remuneracao}")
 	@Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
@@ -45,11 +45,11 @@ public class Vaga extends AbstractEntity<Long>{
 	}
 	
 	public String getDatalimite() {
-		return dataLimite;
+		return datalimite;
 	}
 
 	public void setDatalimite(String dataLimite) {
-		this.dataLimite = dataLimite;
+		this.datalimite = dataLimite;
 	}
 	
 	public Double getRemuneracao() {

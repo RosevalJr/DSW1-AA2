@@ -10,7 +10,9 @@ import br.ufscar.dc.dsw.dao.IEmpresaDAO;
 import br.ufscar.dc.dsw.dao.IProfissionalDAO;
 import br.ufscar.dc.dsw.dao.IUsuarioDAO;
 import br.ufscar.dc.dsw.dao.IVagaDAO;
+import br.ufscar.dc.dsw.domain.Candidatura;
 import br.ufscar.dc.dsw.domain.Empresa;
+import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Vaga;
 
@@ -24,14 +26,9 @@ public class Aa2Application {
 	@Bean
 	public CommandLineRunner demo(IUsuarioDAO usuarioDAO, IProfissionalDAO profissionalDAO, IEmpresaDAO empresaDAO, IVagaDAO vagaDAO, ICandidaturaDAO candidaturaDAO) {
 		return (args) -> {
-			// Populando banco de dados.
-						/* INSERT INTO Usuario (name ,username ,password, role, enabled) VALUES("Carlos da Silva", "admin","admin","admin", TRUE);
-						INSERT INTO Usuario (name ,username ,password, role, enabled) VALUES("Roseval Junior", "rdmaljr@hotmail.com","123password","user", TRUE);
-						INSERT INTO Usuario (name ,username ,password, role, enabled) VALUES("Marcela Ribeiro", "marcela@hotmail.com","1234password","user", TRUE);
-						INSERT INTO Usuario (name ,username ,password, role, enabled) VALUES("José da Silva", "jose@estudante.ufscar.br","1235password","user", TRUE);
-						INSERT INTO Usuario (name ,username ,password, role, enabled) VALUES("MICROSOFT", "microsoft@hotmail.com","1236password","user", TRUE);
-						INSERT INTO Usuario (name ,username ,password, role, enabled) VALUES("PROGRAMAS .INC", "roseval@estudante.ufscar.br","1237password","user", TRUE); */
+						// Populando banco de dados.
 						
+						// Inserindo administrador
 						Usuario u1 = new Usuario();
 						u1.setUsername("admin");
 						u1.setPassword("admin");
@@ -40,61 +37,109 @@ public class Aa2Application {
 						u1.setEnabled(true);
 						usuarioDAO.save(u1);
 						
-						Usuario u2 = new Usuario();
-						u2.setUsername("rdmaljr@hotmail.com");
-						u2.setPassword("123password");
-						u2.setName("Roseval Junior");
-						u2.setRole("userProfissional");
-						u2.setEnabled(true);
-						usuarioDAO.save(u2);
-						
-						Usuario u3 = new Usuario();
-						u3.setUsername("marcela@hotmail.com");
-						u3.setPassword("123password");
-						u3.setName("Marcela Ribeiro");
-						u3.setRole("userProfissional");
-						u3.setEnabled(true);
-						usuarioDAO.save(u3);
-						
-						Usuario u4 = new Usuario();
-						u4.setUsername("jose@estudante.ufscar.br");
-						u4.setPassword("123password");
-						u4.setName("José da Silva");
-						u4.setRole("userProfissional");
-						u4.setEnabled(true);
-						usuarioDAO.save(u4);
-						
-						Usuario u5 = new Usuario();
-						u5.setUsername("microsoft@hotmail.com");
-						u5.setPassword("123password");
-						u5.setName("Microsoft");
-						u5.setRole("userEmpresa");
-						u5.setEnabled(true);
-						usuarioDAO.save(u5);
-						
-						Usuario u6 = new Usuario();
-						u6.setUsername("roseval@estudante.ufscar.br");
-						u6.setPassword("123password");
-						u6.setName("Programas .Inc");
-						u6.setRole("userEmpresa");
-						u6.setEnabled(true);
-						usuarioDAO.save(u6);
-						
-						
-						/*INSERT INTO Profissional (usuario_id ,CPF ,telefone, sexo, nascimento) VALUES(2, 82128243068, "5539806798860", "m", "2000-06-25");
-						INSERT INTO Profissional (usuario_id ,CPF ,telefone, sexo, nascimento) VALUES(3, 44634097052, "5577867134261", "f", "1999-04-15");
-						INSERT INTO Profissional (usuario_id ,CPF ,telefone, sexo, nascimento) VALUES(4, 35098455014, "5579768042305", "m", "1995-01-02");*/
-						
-						/*Profissional p1 = new Profissional();
-						p1.setId((long) 2);
-						p1.setCPF("82128243068");
-						p1.setSexo("m");
-						p1.setNascimento("2000-06-25");
+						// Inserindo profissionais.
+						Profissional p1 = new Profissional();
+						p1.setCPF("717.076.210-20");
+						p1.setSexo("Masculino");
+						p1.setNascimento("25/06/2000");
 						p1.setTelefone("5539806798860");
-						profissionalDAO.save(p1);*/
+						p1.setUsername("rdmaljr@hotmail.com");
+						p1.setPassword("123password");
+						p1.setName("Roseval Junior");
+						p1.setRole("userProfissional");
+						p1.setEnabled(true);
+						profissionalDAO.save(p1);
 						
+						Profissional p2 = new Profissional();
+						p2.setCPF("171.153.090-51");
+						p2.setSexo("Feminino");
+						p2.setNascimento("15/04/1999");
+						p2.setTelefone("5577867134261");
+						p2.setUsername("marcela@hotmail.com");
+						p2.setPassword("123password");
+						p2.setName("Marcela Ribeiro");
+						p2.setRole("userProfissional");
+						p2.setEnabled(true);
+						profissionalDAO.save(p2);
 						
+						Profissional p3 = new Profissional();
+						p3.setCPF("807.705.070-00");
+						p3.setSexo("Masculino");
+						p3.setNascimento("02/01/1995");
+						p3.setTelefone("5579768042305");
+						p3.setUsername("jose@estudante.ufscar.br");
+						p3.setPassword("123password");
+						p3.setName("José da Silva");
+						p3.setRole("userProfissional");
+						p3.setEnabled(true);
+						profissionalDAO.save(p3);
+						
+						// Inserindo empresa.
 						Empresa e1 = new Empresa();
+						e1.setCNPJ("66.520.072/0001-78");
+						e1.setDescricao("Essa empresa vende windows.");
+						e1.setCidade("São Carlos");
+						e1.setUsername("microsoft@hotmail.com");
+						e1.setPassword("123password");
+						e1.setName("Microsoft");
+						e1.setRole("userEmpresa");
+						e1.setEnabled(true);
+						empresaDAO.save(e1);
+						
+						Empresa e2 = new Empresa();
+						e2.setCNPJ("79.611.145/0001-89");
+						e2.setDescricao("Essa empresa vende programas;");
+						e2.setCidade("Curitiba");
+						e2.setUsername("roseval@estudante.ufscar.br");
+						e2.setPassword("123password");
+						e2.setName("Programas .Inc");
+						e2.setRole("userEmpresa");
+						e2.setEnabled(true);
+						empresaDAO.save(e2);
+						
+						// Inserindo vagas.
+						Vaga v1 = new Vaga();
+						v1.setDescricao("Vendedor de windows.");
+						v1.setRemuneracao(980.50);
+						v1.setDatalimite("02/06/2021");
+						v1.setEmpresa(e1);
+						vagaDAO.save(v1);
+						
+						Vaga v2 = new Vaga();
+						v2.setDescricao("Vendedor de programas.");
+						v2.setRemuneracao(650.20);
+						v2.setDatalimite("10/06/2021");
+						v2.setEmpresa(e2);
+						vagaDAO.save(v2);
+						
+						Vaga v3 = new Vaga();
+						v3.setDescricao("Essa aqui vai dar fechada!");
+						v3.setRemuneracao(15.40);
+						v3.setDatalimite("01/01/2020");
+						v3.setEmpresa(e2);
+						vagaDAO.save(v3);
+						
+						Vaga v4 = new Vaga();
+						v4.setDescricao("Mesmo dia fica aberta!");
+						v4.setRemuneracao(300.26);
+						v4.setDatalimite("10/06/2021");
+						v4.setEmpresa(e2);
+						vagaDAO.save(v4);
+						
+						// Inserindo candidaturas
+						Candidatura c1 = new Candidatura();
+						c1.setCurriculo("CurriculoRosevalJunior.pdf");
+						c1.setProfissional(p1);
+						c1.setVaga(v1);
+						candidaturaDAO.save(c1);
+						
+						Candidatura c2 = new Candidatura();
+						c2.setCurriculo("CurriculoMarcelaRibeiro.pdf");
+						c2.setProfissional(p2);
+						c2.setVaga(v2);
+						candidaturaDAO.save(c2);
+						
+						/*Empresa e1 = new Empresa();
 						e1.setUsername("Empresa1");
 						e1.setPassword("senha123");
 						e1.setName("EmpresaMassa");
@@ -110,7 +155,7 @@ public class Aa2Application {
 						v1.setDatalimite("25/02/2022");
 						v1.setEmpresa(e1);
 						v1.setRemuneracao(120.00);
-						vagaDAO.save(v1);
+						vagaDAO.save(v1);*/
 		};
 	}
 
