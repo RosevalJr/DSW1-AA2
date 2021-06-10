@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Vaga")
@@ -40,6 +43,7 @@ public class Vaga extends AbstractEntity<Long>{
 	private Empresa empresa;
 	
 	@OneToMany(mappedBy = "vaga")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Candidatura> candidaturas;
 	
 	public String getDescricao() {

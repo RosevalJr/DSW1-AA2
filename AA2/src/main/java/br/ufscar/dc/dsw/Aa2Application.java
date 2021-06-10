@@ -70,8 +70,8 @@ public class Aa2Application {
 						p3.setSexo("Masculino");
 						p3.setNascimento("02/01/1995");
 						p3.setTelefone("5579768042305");
-						p3.setUsername(encoder.encode("jose@estudante.ufscar.br"));
-						p3.setPassword("123password");
+						p3.setUsername("jose@estudante.ufscar.br");
+						p3.setPassword(encoder.encode("123password"));
 						p3.setName("José da Silva");
 						p3.setRole("userProfissional");
 						p3.setEnabled(true);

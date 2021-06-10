@@ -9,6 +9,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Empresa")
@@ -28,6 +31,7 @@ public class Empresa extends Usuario {
 	private String descricao;
     
 	@OneToMany(mappedBy = "empresa")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Vaga> vagas;
 	
 	public String getCNPJ() {

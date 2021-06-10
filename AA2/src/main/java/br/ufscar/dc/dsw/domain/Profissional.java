@@ -9,6 +9,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Profissional")
@@ -32,6 +35,7 @@ public class Profissional extends Usuario {
 	private String nascimento;
     	
 	@OneToMany(mappedBy = "profissional")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Candidatura> candidaturas;
     
 	public String getCPF() {
