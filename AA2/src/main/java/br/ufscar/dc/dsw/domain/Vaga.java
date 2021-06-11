@@ -37,7 +37,7 @@ public class Vaga extends AbstractEntity<Long>{
 	@Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
 	private BigDecimal remuneracao;
 	
-	@NotNull(message = "{NotNull.vaga.empresa}")
+	//@NotNull(message = "{NotNull.vaga.empresa}")
 	@ManyToOne
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;

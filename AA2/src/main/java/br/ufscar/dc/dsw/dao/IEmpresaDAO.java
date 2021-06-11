@@ -9,6 +9,8 @@ import br.ufscar.dc.dsw.domain.Empresa;
 @SuppressWarnings("unchecked")
 public interface IEmpresaDAO extends CrudRepository<Empresa, Long>{
 	Empresa findById(long id);
+	
+	Empresa findByUsername(String username);
 
 	List<Empresa> findAll();
 	
