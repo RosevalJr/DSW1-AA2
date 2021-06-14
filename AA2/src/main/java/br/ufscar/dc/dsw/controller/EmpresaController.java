@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -51,9 +52,16 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/salvarVagas")
-	public String salvar(@Valid Vaga vaga, BindingResult result, RedirectAttributes attr, Principal principal) {
+	public String salvar(@Valid Vaga vaga, BindingResult result, RedirectAttributes attr, Principal principal) throws ParseException {
 		Empresa empresaLogada = empresaDAO.findByUsername(principal.getName());
 		vaga.setEmpresa(empresaLogada);
+		
+		String[] partesData = vaga.getDatalimite().split("-");
+		
+		if(partesData.length == 3) {
+			String dataCorreta = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
+			vaga.setDatalimite(dataCorreta);
+		}
 
 		if (result.hasErrors()) {
 			return "empresa/cadastroVaga";

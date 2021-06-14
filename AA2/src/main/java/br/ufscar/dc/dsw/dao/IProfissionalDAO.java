@@ -9,6 +9,8 @@ import br.ufscar.dc.dsw.domain.Profissional;
 @SuppressWarnings("unchecked")
 public interface IProfissionalDAO extends CrudRepository<Profissional, Long>{
 	Profissional findById(long id);
+	
+	Profissional findByUsername(String username);
 
 	List<Profissional> findAll();
 	

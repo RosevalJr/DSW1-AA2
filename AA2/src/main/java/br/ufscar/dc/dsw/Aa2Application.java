@@ -104,28 +104,28 @@ public class Aa2Application {
 						Vaga v1 = new Vaga();
 						v1.setDescricao("Vendedor de windows.");
 						v1.setRemuneracao(BigDecimal.valueOf(980.50));
-						v1.setDatalimite("02/06/2021");
+						v1.setDatalimite("02/06/2022");
 						v1.setEmpresa(e1);
 						vagaDAO.save(v1);
 						
 						Vaga v2 = new Vaga();
 						v2.setDescricao("Vendedor de programas.");
 						v2.setRemuneracao(BigDecimal.valueOf(650.20));
-						v2.setDatalimite("10/06/2021");
+						v2.setDatalimite("10/06/2022");
 						v2.setEmpresa(e2);
 						vagaDAO.save(v2);
 						
 						Vaga v3 = new Vaga();
 						v3.setDescricao("Essa aqui vai dar fechada!");
 						v3.setRemuneracao(BigDecimal.valueOf(15.40));
-						v3.setDatalimite("01/01/2020");
+						v3.setDatalimite("01/01/2025");
 						v3.setEmpresa(e2);
 						vagaDAO.save(v3);
 						
 						Vaga v4 = new Vaga();
 						v4.setDescricao("Mesmo dia fica aberta!");
 						v4.setRemuneracao(BigDecimal.valueOf(300.26));
-						v4.setDatalimite("09/06/2021");
+						v4.setDatalimite("09/06/2024");
 						v4.setEmpresa(e2);
 						vagaDAO.save(v4);
 						
