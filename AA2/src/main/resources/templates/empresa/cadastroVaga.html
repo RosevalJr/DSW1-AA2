@@ -44,9 +44,10 @@
 					<div class="form-group col-md-6">
 						<label th:text="#{vaga.salario}" for="remuneracao"></label> 
 						<input type="text" class="form-control" id="remuneracao"
-							th:placeholder="#{vaga.salario}"
+							th:placeholder="0.00"
 							autofocus="autofocus" th:field="*{remuneracao}"
-							th:classappend="${#fields.hasErrors('remuneracao')} ? is-invalid" />
+							th:classappend="${#fields.hasErrors('remuneracao')} ? is-invalid"
+							data-mask="000000000.00" data-mask-reverse="false" />
 
 						<div class="invalid-feedback">
 							<span th:errors="*{remuneracao}"></span>

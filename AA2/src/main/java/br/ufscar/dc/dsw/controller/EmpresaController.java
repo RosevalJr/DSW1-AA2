@@ -63,6 +63,16 @@ public class EmpresaController {
 	public String salvar(@Valid Vaga vaga, BindingResult result, RedirectAttributes attr, Principal principal) throws ParseException {
 		
 		String[] partesData = vaga.getDatalimite().split("-");
+		System.out.println(vaga.getRemuneracao());
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
 		
 		if(partesData.length == 3) {
 			String dataCorreta = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
