@@ -10,43 +10,42 @@
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
-						<span th:text="#{candidaturas.listar.profissional}" ></span><span th:text="${profissionalLogado.name}" ></span></li>
+						<span th:text="#{candidatura.listar.vaga}"></span><span
+						th:text="${vaga.id}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/profissionais/aplicar}" role="button">
-					<span class="oi oi-plus" title="Inicial" aria-hidden="true"></span>
-					<span th:text="#{aplicar}"></span>
-				</a>
 			</div>
 		</nav>
-
 		<div class="container" id="listagem">
 
 			<div class="table-responsive">
 				<table class="table table-striped table-hover table-sm">
 					<thead>
 						<tr>
-							<th th:text="#{candidatura.empresa}"></th>
-							<th th:text="#{candidatura.descricao}"></th>
-							<th th:text="#{candidatura.salario}"></th>
+							<th>#</th>
+							<th th:text="#{usuario.name.label}"></th>
+							<th th:text="#{profissional.telefone.label}"></th>
+							<th th:text="#{profissional.genero.label}"></th>
+							<th th:text="#{profissional.nascimento.label}"></th>
 							<th th:text="#{candidatura.status}"></th>
 							<th th:text="#{candidatura.curriculo}"></th>
 						</tr>
 					</thead>
-					<tbody>						
+					<tbody>
 						<tr th:each="candidatura : ${candidaturas}">
-							<td th:text="${candidatura.vaga.empresa.name}"></td>
-							<td th:text="${candidatura.vaga.descricao}"></td>
-							<td th:text="${candidatura.vaga.remuneracao}"></td>
+							<td th:text="${candidatura.id}"></td>
+							<td th:text="${candidatura.profissional.name}"></td>
+							<td th:text="${candidatura.profissional.telefone}"></td>
+							<td th:text="${candidatura.profissional.sexo}"></td>
+							<td th:text="${candidatura.profissional.nascimento}"></td>
 							<td th:text="${candidatura.status}"></td>
 							<td th:text="${candidatura.curriculo}"></td>
-							<td colspan="10">
-							</td>
+							<td colspan="5"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<div th:replace="fragments/modal :: modal"></div>
+
 	</section>
 </body>
 </html>

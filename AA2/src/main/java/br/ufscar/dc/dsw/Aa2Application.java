@@ -45,7 +45,7 @@ public class Aa2Application {
 						p1.setCPF("717.076.210-20");
 						p1.setSexo("Masculino");
 						p1.setNascimento("25/06/2000");
-						p1.setTelefone("5539806798860");
+						p1.setTelefone("55(39)80679-8860");
 						p1.setUsername("rdmaljr@hotmail.com");
 						p1.setPassword(encoder.encode("123password"));
 						p1.setName("Roseval Junior");
@@ -57,7 +57,7 @@ public class Aa2Application {
 						p2.setCPF("171.153.090-51");
 						p2.setSexo("Feminino");
 						p2.setNascimento("15/04/1999");
-						p2.setTelefone("5577867134261");
+						p2.setTelefone("55(77)86713-4261");
 						p2.setUsername("marcela@hotmail.com");
 						p2.setPassword(encoder.encode("123password"));
 						p2.setName("Marcela Ribeiro");
@@ -69,7 +69,7 @@ public class Aa2Application {
 						p3.setCPF("807.705.070-00");
 						p3.setSexo("Masculino");
 						p3.setNascimento("02/01/1995");
-						p3.setTelefone("5579768042305");
+						p3.setTelefone("55(79)76804-2305");
 						p3.setUsername("jose@estudante.ufscar.br");
 						p3.setPassword(encoder.encode("123password"));
 						p3.setName("José da Silva");

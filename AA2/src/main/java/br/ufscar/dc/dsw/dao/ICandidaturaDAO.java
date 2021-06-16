@@ -15,6 +15,8 @@ public interface ICandidaturaDAO extends CrudRepository<Candidatura, Long>{
 	
 	List<Candidatura> findByProfissional(Profissional profissional);
 	
+	List<Candidatura> findByVaga(Vaga vaga);
+	
 	Candidatura findByProfissionalAndVaga(Profissional profissional, Vaga vaga);
 
 	List<Candidatura> findAll();

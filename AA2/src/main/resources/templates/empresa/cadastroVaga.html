@@ -63,7 +63,7 @@
 							<span th:errors="*{datalimite}"></span>
 						</div>
 					</div>
-
+					<input type="hidden" th:field="*{empresa}" id="empresa">
 				<button type="submit" th:text="#{button.salvar.label}"
 					class="btn btn-primary btn-sm"></button>
 			</form>

@@ -23,7 +23,7 @@ public class Profissional extends Usuario {
     private String CPF;
     
 	@NotBlank(message = "{NotBlank.profissional.telefone}")
-    @Size(max = 15, message = "{Size.profissional.telefone}")
+    @Size(min = 16, max = 16, message = "{Size.profissional.telefone}")
     @Column(nullable = false, length = 15)
     private String telefone;
     

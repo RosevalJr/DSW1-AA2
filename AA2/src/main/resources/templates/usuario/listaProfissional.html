@@ -9,14 +9,13 @@
 		<nav class="navbar navbar-expand-md bg-light">
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<i class="oi oi-caret-right"></i>
-						<span th:text="#{profissional.listar.label}"></span>
-					</li>
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span th:text="#{profissional.listar.label}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/usuarios/cadastrarProfissionais}" role="button"> 
-					<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
-					<span th:text="#{profissional.cadastrar.label}"></span>
+				<a class="btn btn-primary btn-md"
+					th:href="@{/usuarios/cadastrarProfissionais}" role="button"> <span
+					class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> <span
+					th:text="#{profissional.cadastrar.label}"></span>
 				</a>
 			</div>
 		</nav>
@@ -32,7 +31,6 @@
 							<th>#</th>
 							<th th:text="#{usuario.username.label}"></th>
 							<th th:text="#{usuario.name.label}"></th>
-							<th th:text="#{usuario.role.label}"></th>
 							<th th:text="#{profissional.CPF.label}"></th>
 							<th th:text="#{profissional.telefone.label}"></th>
 							<th th:text="#{profissional.genero.label}"></th>
@@ -45,23 +43,22 @@
 							<td th:text="${profissional.id}"></td>
 							<td th:text="${profissional.username}"></td>
 							<td th:text="${profissional.name}"></td>
-							<td th:text="${profissional.role}"></td>
 							<td th:text="${profissional.CPF}"></td>
 							<td th:text="${profissional.telefone}"></td>
 							<td th:text="${profissional.sexo}"></td>
 							<td th:text="${profissional.nascimento}"></td>
-							<td colspan="2">
-								<a class="btn btn-info btn-sm" th:href="@{/usuarios/editarProfissionais/{id} (id=${profissional.id}) }"
-									role="button"> 
-									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"> </span>
-								</a>
+							<td colspan="2"><a class="btn btn-info btn-sm"
+								th:href="@{/usuarios/editarProfissionais/{id} (id=${profissional.id}) }"
+								role="button"> <span class="oi oi-brush"
+									th:title="#{link.editar.label}" aria-hidden="true"> </span>
+							</a>
 								<button
 									th:id="${'btn_usuarios/excluirProfissionais/' + profissional.id}"
-									type="button" class="btn btn-danger btn-sm"
-									data-toggle="modal" data-target="#myModal">
-									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
-								</button>
-							</td>
+									type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+									data-target="#myModal">
+									<span class="oi oi-circle-x" th:title="#{link.excluir.label}"
+										aria-hidden="true"></span>
+								</button></td>
 						</tr>
 					</tbody>
 				</table>

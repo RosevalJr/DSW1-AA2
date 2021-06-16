@@ -10,11 +10,13 @@
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
-						<span th:text="#{vaga.listar.empresa}" ></span><span th:text="${empresaLogada.name}" ></span></li>
+						<span th:text="#{vaga.listar.empresa}"></span><span
+						th:text="${empresaLogada.name}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/empresas/cadastrarVagas}" role="button">
-					<span class="oi oi-plus" title="Inicial" aria-hidden="true"></span>
-					<span th:text="#{vaga.cadastrar.label}"></span>
+				<a class="btn btn-primary btn-md"
+					th:href="@{/empresas/cadastrarVagas}" role="button"> <span
+					class="oi oi-plus" title="Inicial" aria-hidden="true"></span> <span
+					th:text="#{vaga.cadastrar.label}"></span>
 				</a>
 			</div>
 		</nav>
@@ -31,13 +33,17 @@
 							<th th:text="#{vaga.datalimite}"></th>
 						</tr>
 					</thead>
-					<tbody>						
+					<tbody>
 						<tr th:each="vaga : ${vagas}">
 							<td th:text="${vaga.id}"></td>
 							<td th:text="${vaga.descricao}"></td>
 							<td th:text="${vaga.remuneracao}"></td>
 							<td th:text="${vaga.datalimite}"></td>
-							<td colspan="5"></td>
+							<td colspan="2"><a class="btn btn-info btn-sm"
+								th:href="@{/empresas/listarCandidaturas/{id} (id=${vaga.id}) }"
+								role="button"> <span class="oi oi-brush"
+									th:title="#{link.candidatura.listar}" aria-hidden="true"> </span>
+							</a></td>
 						</tr>
 					</tbody>
 				</table>
