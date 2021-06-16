@@ -10,11 +10,13 @@
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
-						<span th:text="#{candidaturas.listar.profissional}" ></span><span th:text="${profissionalLogado.name}" ></span></li>
+						<span th:text="#{candidaturas.listar.profissional}"></span><span
+						th:text="${profissionalLogado.name}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/profissionais/aplicar}" role="button">
-					<span class="oi oi-plus" title="Inicial" aria-hidden="true"></span>
-					<span th:text="#{aplicar}"></span>
+				<a class="btn btn-primary btn-md"
+					th:href="@{/profissionais/aplicar}" role="button"> <span
+					class="oi oi-plus" title="Inicial" aria-hidden="true"></span> <span
+					th:text="#{aplicar}"></span>
 				</a>
 			</div>
 		</nav>
@@ -32,7 +34,7 @@
 							<th th:text="#{candidatura.curriculo}"></th>
 						</tr>
 					</thead>
-					<tbody>						
+					<tbody>
 						<tr th:each="candidatura : ${candidaturas}">
 							<td th:text="${candidatura.vaga.empresa.name}"></td>
 							<td th:text="${candidatura.vaga.descricao}"></td>
@@ -40,6 +42,11 @@
 							<td th:text="${candidatura.status}"></td>
 							<td th:text="${candidatura.curriculo}"></td>
 							<td colspan="10">
+							<a class="btn btn-info btn-sm"
+								th:href="@{/upload/{curriculo} (curriculo=${candidatura.curriculo}) }"
+								role="button"> <span class="oi oi-brush"
+								th:title="#{candidatura.curriculo}" aria-hidden="true"> </span>
+							</a>
 							</td>
 						</tr>
 					</tbody>
