@@ -10,8 +10,7 @@
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
-						<span th:text="#{candidatura.listar.vaga}"></span><span
-						th:text="${vaga.id}"></span></li>
+						<span th:text="#{analisar.candidatura}"></span></li>
 				</ul>
 			</div>
 		</nav>
@@ -28,12 +27,10 @@
 							<th th:text="#{profissional.nascimento.label}"></th>
 							<th th:text="#{candidatura.status}"></th>
 							<th th:text="#{candidatura.curriculo}"></th>
-							<th th:text="#{analisar.candidatura}"></th>
-							<th th:text="#{ver.curriculo}"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="candidatura : ${candidaturas}">
+						<tr th:each="candidatura : ${candidatura}">
 							<td th:text="${candidatura.id}"></td>
 							<td th:text="${candidatura.profissional.name}"></td>
 							<td th:text="${candidatura.profissional.telefone}"></td>
@@ -41,22 +38,41 @@
 							<td th:text="${candidatura.profissional.nascimento}"></td>
 							<td th:text="${candidatura.status}"></td>
 							<td th:text="${candidatura.curriculo}"></td>
-							<td colspan="1"><a th:if="${candidatura.status == 'ABERTO'}"
-								class="btn btn-info btn-sm"
-								th:href="@{/empresas/analisarCandidaturas/{id} (id=${candidatura.id}) }"
+							<td colspan="5"><a class="btn btn-info btn-sm"
+								th:href="@{/upload/{curriculo} (curriculo=${candidatura.curriculo}) }"
 								role="button"> <span class="oi oi-brush"
-									th:title="#{link.editar.label}" aria-hidden="true"> </span>
-							</a></td>
-							<td colspan="1"><a class="btn btn-info btn-sm"
-								th:href="@{/upload/{nome} (nome=${candidatura.curriculo}) }"
-								role="button"> <span class="oi oi-brush"
-									th:title="#{ver.curriculo}" aria-hidden="true"> </span>
+									th:title="#{candidatura.curriculo}" aria-hidden="true">
+								</span>
 							</a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
+
+		<div class="container" id="cadastro" align="center">
+			<div th:replace="fragments/alert"></div>
+
+			<h1>
+				<span th:text="#{file.label}"></span>
+			</h1>
+			<tbody th:each="candidatura : ${candidatura}">
+				<form method="POST"
+					th:action="@{/empresas/statusCandidatura/{id} (id=${candidatura.id}) }">
+
+					<span th:text="#{link.entrevista.label}"></span> <input type="text"
+						name="linkEntrevista" /> <select id="status" name="status"
+						class="form-control">
+						<option value="NaoSelecionado">Não Selecionado</option>
+						<option value="Entrevista">Entrevista</option>
+					</select>
+					<button type="submit" th:text="#{button.salvar.label}"
+						class="btn btn-primary btn-sm"></button>
+
+				</form>
+			</tbody>
+		</div>
+
 
 	</section>
 </body>

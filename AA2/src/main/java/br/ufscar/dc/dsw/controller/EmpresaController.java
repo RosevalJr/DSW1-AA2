@@ -1,9 +1,11 @@
 package br.ufscar.dc.dsw.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.mail.internet.InternetAddress;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Vaga;
+import br.ufscar.dc.dsw.EmailService;
 import br.ufscar.dc.dsw.dao.ICandidaturaDAO;
 import br.ufscar.dc.dsw.dao.IEmpresaDAO;
 import br.ufscar.dc.dsw.dao.IVagaDAO;
@@ -35,6 +39,9 @@ public class EmpresaController {
 	
 	@Autowired
 	private ICandidaturaDAO candidaturaDAO;
+	
+	@Autowired
+	private EmailService servicoEmail;
 	
 	@GetMapping("/listarVagas")
 	public String listarEmpresas(ModelMap model, Principal principal) {
@@ -98,6 +105,45 @@ public class EmpresaController {
 		model.addAttribute("candidaturas", candidaturas);
 		model.addAttribute("vaga", vaga);
 		return "empresa/listaCandidatura";
+	}
+	
+	@GetMapping("/analisarCandidaturas/{id}")
+	public String analisarCandidatura(@PathVariable("id") Long id, ModelMap model) {
+		Vaga vaga = vagaDAO.findById(id).get();
+		
+		List<Candidatura> candidaturas = candidaturaDAO.findByVaga(vaga);
+
+		model.addAttribute("candidatura", candidaturas);
+		model.addAttribute("queroid", candidaturas);
+		model.addAttribute("vaga", vaga);
+		return "empresa/analisaCandidatura";
+	}
+	
+	@PostMapping("/statusCandidatura/{id}")
+	public String statusCandidatura(@PathVariable("id") Long id, @RequestParam("status") String status, @RequestParam("linkEntrevista") String linkEntrevista, ModelMap model) throws UnsupportedEncodingException {
+		// Aqui e necessario alterar o status da candidatura.
+		// Enviar o email correto para o concorrente da vaga.
+		Candidatura candidatura = candidaturaDAO.findById(id).get();
+        InternetAddress from = new InternetAddress("aa1seedsw1@gmail.com", "AA2");
+	    InternetAddress to = new InternetAddress(candidatura.getProfissional().getUsername(), candidatura.getProfissional().getName());
+		
+		if(status.equals("NaoSelecionado")) {
+			candidatura.setStatus("Não Selecionado");
+			String cabecalho = "NÃO SELECIONADO !";
+			String corpo = "INFELIZMENTE VOCÊ NÃO FOI SELECIONADO.";
+			servicoEmail.send(from, to, cabecalho, corpo);
+		}
+		else {
+			candidatura.setStatus("Entrevista");
+			String cabecalho = "SELECIONADO !";
+			String corpo = "LINK DA ENTREVISTA: " + linkEntrevista;
+			servicoEmail.send(from, to, cabecalho, corpo);
+			
+		}
+		
+		candidaturaDAO.save(candidatura);
+
+		return "redirect:/empresas/listarCandidaturas/" + String.valueOf(candidatura.getVaga().getId());
 	}
 	
 }
