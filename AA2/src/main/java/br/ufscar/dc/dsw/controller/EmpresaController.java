@@ -97,8 +97,16 @@ public class EmpresaController {
 	}
 	
 	@GetMapping("/listarCandidaturas/{id}")
-	public String editarProfissional(@PathVariable("id") Long id, ModelMap model) {
+	public String editarProfissional(@PathVariable("id") Long id, ModelMap model, Principal principal) {
 		Vaga vaga = vagaDAO.findById(id).get();
+		Empresa empresa = empresaDAO.findByUsername(principal.getName());
+		
+		
+		if(empresa.getId() != vaga.getEmpresa().getId()) {
+			model.addAttribute("error", "403.error");
+			model.addAttribute("message", "403.message");
+			return "error";
+		}
 		
 		List<Candidatura> candidaturas = candidaturaDAO.findByVaga(vaga);
 
@@ -108,8 +116,16 @@ public class EmpresaController {
 	}
 	
 	@GetMapping("/analisarCandidaturas/{id}")
-	public String analisarCandidatura(@PathVariable("id") Long id, ModelMap model) {
+	public String analisarCandidatura(@PathVariable("id") Long id, ModelMap model, Principal principal) {
 		Vaga vaga = vagaDAO.findById(id).get();
+		Empresa empresa = empresaDAO.findByUsername(principal.getName());
+		
+		
+		if(empresa.getId() != vaga.getEmpresa().getId()) {
+			model.addAttribute("error", "403.error");
+			model.addAttribute("message", "403.message");
+			return "error";
+		}
 		
 		List<Candidatura> candidaturas = candidaturaDAO.findByVaga(vaga);
 
