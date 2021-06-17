@@ -47,7 +47,7 @@
 
 	<h1><span th:text="#{file.label}"></span></h1>
 	<form method="POST" th:action="@{/profissionais/uploadFile/{id} (id=${vaga.id}) }" enctype="multipart/form-data">
-		<span th:text="#{file}"></span>  <input type="file" name="file" /><input type="submit" value="Upload" />
+		<span th:text="#{file}"></span>  <input type="file" name="file" accept="application/pdf" /><input type="submit" value="Upload" />
 	</form>
 
 		</div>

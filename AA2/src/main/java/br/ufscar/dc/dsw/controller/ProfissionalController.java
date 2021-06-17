@@ -122,6 +122,15 @@ public class ProfissionalController {
 	
 	@GetMapping("/excluirCandidatura/{id}")
 	public String excluirCandidatura(@PathVariable("id") long id, ModelMap model, Principal principal) {
+		Candidatura candidatura = candidaturaDAO.findById(id);
+		Profissional profissional = profissionalDAO.findByUsername(principal.getName());
+		
+		if(candidatura.getProfissional() != profissional) {
+			model.addAttribute("error", "403.error");
+			model.addAttribute("message", "403.message");
+			return "error";
+		}
+		
 		candidaturaDAO.deleteById(id);
 		
 		return "redirect:/profissionais/listarCandidaturas";

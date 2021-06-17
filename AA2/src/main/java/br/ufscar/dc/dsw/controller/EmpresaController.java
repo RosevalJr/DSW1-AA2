@@ -70,16 +70,6 @@ public class EmpresaController {
 	public String salvar(@Valid Vaga vaga, BindingResult result, RedirectAttributes attr, Principal principal) throws ParseException {
 		
 		String[] partesData = vaga.getDatalimite().split("-");
-		System.out.println(vaga.getRemuneracao());
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
 		
 		if(partesData.length == 3) {
 			String dataCorreta = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
@@ -136,10 +126,19 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/statusCandidatura/{id}")
-	public String statusCandidatura(@PathVariable("id") Long id, @RequestParam("status") String status, @RequestParam("linkEntrevista") String linkEntrevista, ModelMap model) throws UnsupportedEncodingException {
+	public String statusCandidatura(@PathVariable("id") Long id, @RequestParam("status") String status, @RequestParam("linkEntrevista") String linkEntrevista, ModelMap model, Principal principal) throws UnsupportedEncodingException {
 		// Aqui e necessario alterar o status da candidatura.
 		// Enviar o email correto para o concorrente da vaga.
 		Candidatura candidatura = candidaturaDAO.findById(id).get();
+		Empresa empresa = empresaDAO.findByUsername(principal.getName());
+		
+		
+		if(empresa != candidatura.getVaga().getEmpresa()) {
+			model.addAttribute("error", "403.error");
+			model.addAttribute("message", "403.message");
+			return "error";
+		}
+		
         InternetAddress from = new InternetAddress("aa1seedsw1@gmail.com", "AA2");
 	    InternetAddress to = new InternetAddress(candidatura.getProfissional().getUsername(), candidatura.getProfissional().getName());
 		
