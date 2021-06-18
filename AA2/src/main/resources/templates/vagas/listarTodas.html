@@ -33,7 +33,7 @@
 							<th th:text="#{vaga.datalimite}"></th>
 						</tr>
 					</thead>
-					<tbody>						
+					<tbody>
 						<tr th:each="vaga : ${vagas}">
 							<td th:text="${vaga.id}"></td>
 							<td th:text="${vaga.empresa.name}"></td>
@@ -47,6 +47,6 @@
 				</table>
 			</div>
 		</div>
+					
 	</section>
-</body>
 </html>

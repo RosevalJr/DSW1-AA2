@@ -3,6 +3,8 @@ package br.ufscar.dc.dsw.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.ufscar.dc.dsw.dao.IVagaDAO;
 import br.ufscar.dc.dsw.domain.Vaga;
 
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,32 @@ public class VagasController {
 		for(int i = 0; i < todasVagas.size(); i++) {
 			if(todasVagas.get(i).isAberta())
 				vagasAbertas.add(todasVagas.get(i));
+		}
+		
+		model.addAttribute("vagas", vagasAbertas);
+		return "vagas/listarTodas";
+	}
+	
+	@GetMapping("/buscar/{cidade}")
+	public String buscar(@PathVariable String cidade, ModelMap model) throws ParseException {
+		
+		List<Vaga> todasVagas = vagaDAO.findAll();
+		List<Vaga> vagasAbertas =  new ArrayList<Vaga>();
+		
+		cidade = Normalizer.normalize(cidade, Normalizer.Form.NFD);
+		cidade = cidade.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+		cidade = cidade.toUpperCase();
+		
+		for(int i = 0; i < todasVagas.size(); i++) {
+			if(todasVagas.get(i).isAberta()) {
+				String cidadeVaga = todasVagas.get(i).getEmpresa().getCidade();
+				cidadeVaga = Normalizer.normalize(cidadeVaga, Normalizer.Form.NFD);
+				cidadeVaga = cidadeVaga.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+				cidadeVaga = cidadeVaga.toUpperCase();
+
+				if(cidadeVaga.equals(cidade))
+					vagasAbertas.add(todasVagas.get(i));
+			}
 		}
 		
 		model.addAttribute("vagas", vagasAbertas);
