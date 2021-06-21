@@ -34,15 +34,6 @@ public class UsuarioController {
 	@PostMapping("/salvarEmpresas")
 	public String salvar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr) {
 
-		System.out.println(empresa.getCNPJ());
-		System.out.println(empresa.getUsername());
-		System.out.println(empresa.getId());
-		System.out.println(empresa.getCidade());
-		System.out.println(empresa.getDescricao());
-		System.out.println(empresa.getName());
-		System.out.println(empresa.getRole());
-		System.out.println(empresa.getPassword());
-
 		if (result.hasErrors()) {
 			return "usuario/cadastroEmpresa";
 		}
@@ -64,14 +55,6 @@ public class UsuarioController {
 	@PostMapping("/editarEmpresas")
 	public String editar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr) {
 
-		System.out.println(empresa.getCNPJ());
-		System.out.println(empresa.getUsername());
-		System.out.println(empresa.getId());
-		System.out.println(empresa.getCidade());
-		System.out.println(empresa.getDescricao());
-		System.out.println(empresa.getName());
-		System.out.println(empresa.getRole());
-		System.out.println(empresa.getPassword());
 
 		if (result.hasErrors()) {
 			return "usuario/cadastroEmpresa";
@@ -84,16 +67,6 @@ public class UsuarioController {
 
 	@PostMapping("/salvarProfissionais")
 	public String salvar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr) {
-
-		System.out.println(profissional.getCPF());
-		System.out.println(profissional.getUsername());
-		System.out.println(profissional.getId());
-		System.out.println(profissional.getSexo());
-		System.out.println(profissional.getTelefone());
-		System.out.println(profissional.getName());
-		System.out.println(profissional.getRole());
-		System.out.println(profissional.getPassword());
-		System.out.println(profissional.getNascimento());
 
 		String[] partesData = profissional.getNascimento().split("-");
 
@@ -123,16 +96,13 @@ public class UsuarioController {
 	@PostMapping("/editarProfissionais")
 	public String editar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr) {
 
-		System.out.println(profissional.getCPF());
-		System.out.println(profissional.getUsername());
-		System.out.println(profissional.getId());
-		System.out.println(profissional.getSexo());
-		System.out.println(profissional.getTelefone());
-		System.out.println(profissional.getName());
-		System.out.println(profissional.getRole());
-		System.out.println(profissional.getPassword());
-		System.out.println(profissional.getNascimento());
+		String[] partesData = profissional.getNascimento().split("-");
 
+		if (partesData.length == 3) {
+			String dataCorreta = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
+			profissional.setNascimento(dataCorreta);
+		}
+		
 		if (result.hasErrors()) {
 			return "usuario/cadastroProfissional";
 		}
