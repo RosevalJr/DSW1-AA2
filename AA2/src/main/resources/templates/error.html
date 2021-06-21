@@ -26,7 +26,9 @@
 		<hr/>
 		
 		<div>
-			<span th:text="#{${message}}"></span><br />
+			<div th:each="msg : ${message}">
+			 <span th:text="#{${msg}}"></span><br />
+			</div>
 			<br /> <a class="btn btn-primary" type="button"
 				href="javascript:history.back()"><span th:text="#{previous.message}"></span></a>
 		</div>

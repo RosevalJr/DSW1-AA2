@@ -1,5 +1,8 @@
 package br.ufscar.dc.dsw.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Profissional;
+import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.dao.IEmpresaDAO;
 import br.ufscar.dc.dsw.dao.IProfissionalDAO;
+import br.ufscar.dc.dsw.dao.IUsuarioDAO;
 import br.ufscar.dc.dsw.domain.Empresa;
 
 @Controller
@@ -31,11 +36,35 @@ public class UsuarioController {
 	@Autowired
 	private IEmpresaDAO empresaDAO;
 
-	@PostMapping("/salvarEmpresas")
-	public String salvar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr) {
+	@Autowired
+	private IUsuarioDAO usuarioDAO;
 
+	@PostMapping("/salvarEmpresas")
+	public String salvar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr, ModelMap model) {
+		List<String> sqlErros = new ArrayList<String>();
+		boolean temSqlErros = false;
+		
 		if (result.hasErrors()) {
 			return "usuario/cadastroEmpresa";
+		}
+		
+		Usuario usuarioChecar = usuarioDAO.getUserByUsername(empresa.getUsername());
+		if (usuarioChecar != null) {
+			model.addAttribute("error", "354.error"); // UHHHHMM
+			sqlErros.add("354.message.username");
+			temSqlErros = true;
+		}
+
+		Empresa empresaChecar = empresaDAO.findByCNPJ(empresa.getCNPJ());
+		if (empresaChecar != null) {
+			model.addAttribute("error", "354.error");
+			sqlErros.add("354.message.CNPJ");
+			temSqlErros = true;
+		}
+
+		if (temSqlErros) {
+			model.addAttribute("message", sqlErros);
+			return "error";
 		}
 
 		System.out.println("password = " + empresa.getPassword());
@@ -53,11 +82,31 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/editarEmpresas")
-	public String editar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr) {
-
-
+	public String editar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr, ModelMap model) {
+		List<String> sqlErros = new ArrayList<String>();
+		boolean temSqlErros = false;
+		
 		if (result.hasErrors()) {
 			return "usuario/cadastroEmpresa";
+		}
+		
+		Usuario usuarioChecar = usuarioDAO.getUserByUsername(empresa.getUsername());
+		if (usuarioChecar != null && usuarioChecar.getId() != empresa.getId()) {
+			model.addAttribute("error", "354.error"); // UHHHHMM
+			sqlErros.add("354.message.username");
+			temSqlErros = true;
+		}
+
+		Empresa empresaChecar = empresaDAO.findByCNPJ(empresa.getCNPJ());
+		if (empresaChecar != null && empresaChecar.getId() != empresa.getId()) {
+			model.addAttribute("error", "354.error");
+			sqlErros.add("354.message.CNPJ");
+			temSqlErros = true;
+		}
+
+		if (temSqlErros) {
+			model.addAttribute("message", sqlErros);
+			return "error";
 		}
 
 		empresaDAO.save(empresa);
@@ -66,8 +115,10 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/salvarProfissionais")
-	public String salvar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr) {
-
+	public String salvar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr,
+			ModelMap model) {
+		List<String> sqlErros = new ArrayList<String>();
+		boolean temSqlErros = false;
 		String[] partesData = profissional.getNascimento().split("-");
 
 		if (partesData.length == 3) {
@@ -79,7 +130,24 @@ public class UsuarioController {
 			return "usuario/cadastroProfissional";
 		}
 
-		System.out.println("password = " + profissional.getPassword());
+		Usuario usuarioChecar = usuarioDAO.getUserByUsername(profissional.getUsername());
+		if (usuarioChecar != null) {
+			model.addAttribute("error", "354.error"); // UHHHHMM
+			sqlErros.add("354.message.username");
+			temSqlErros = true;
+		}
+
+		Profissional profissionalChecar = profissionalDAO.findByCPF(profissional.getCPF());
+		if (profissionalChecar != null) {
+			model.addAttribute("error", "354.error");
+			sqlErros.add("354.message.CPF");
+			temSqlErros = true;
+		}
+
+		if (temSqlErros) {
+			model.addAttribute("message", sqlErros);
+			return "error";
+		}
 
 		profissional.setPassword(encoder.encode(profissional.getPassword()));
 		profissionalDAO.save(profissional);
@@ -94,17 +162,38 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/editarProfissionais")
-	public String editar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr) {
-
+	public String editar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr, ModelMap model) {
+		
+		List<String> sqlErros = new ArrayList<String>();
+		boolean temSqlErros = false;
 		String[] partesData = profissional.getNascimento().split("-");
 
 		if (partesData.length == 3) {
 			String dataCorreta = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
 			profissional.setNascimento(dataCorreta);
 		}
-		
+
 		if (result.hasErrors()) {
 			return "usuario/cadastroProfissional";
+		}
+		
+		Usuario usuarioChecar = usuarioDAO.getUserByUsername(profissional.getUsername());
+		if (usuarioChecar != null && usuarioChecar.getId() != profissional.getId()) {
+			model.addAttribute("error", "354.error"); // UHHHHMM
+			sqlErros.add("354.message.username");
+			temSqlErros = true;
+		}
+
+		Profissional profissionalChecar = profissionalDAO.findByCPF(profissional.getCPF());
+		if (profissionalChecar != null && profissionalChecar.getId() != profissional.getId()) {
+			model.addAttribute("error", "354.error");
+			sqlErros.add("354.message.CPF");
+			temSqlErros = true;
+		}
+
+		if (temSqlErros) {
+			model.addAttribute("message", sqlErros);
+			return "error";
 		}
 
 		profissionalDAO.save(profissional);

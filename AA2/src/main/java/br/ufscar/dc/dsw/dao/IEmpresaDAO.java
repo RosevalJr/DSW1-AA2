@@ -10,6 +10,8 @@ import br.ufscar.dc.dsw.domain.Empresa;
 public interface IEmpresaDAO extends CrudRepository<Empresa, Long>{
 	Empresa findById(long id);
 	
+	Empresa findByCNPJ(String CNPJ);
+	
 	Empresa findByUsername(String username);
 
 	List<Empresa> findAll();
