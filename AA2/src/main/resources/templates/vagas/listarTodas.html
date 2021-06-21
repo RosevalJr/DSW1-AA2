@@ -45,8 +45,13 @@
 						</tr>
 					</tbody>
 				</table>
+				
+				<span th:text="#{buscar.titulo}"></span>
+				<form th:action="@{/vagas/buscar}" method="POST">
+				<input type="text" id="nome" name="nome" th:placeholder="#{buscar.placeholder}" autofocus="autofocus" />
+				<button type="submit" class="btn btn-primary btn-sm"><span th:text="#{buscar}"></span></button>
+			</form>
 			</div>
 		</div>
-					
 	</section>
 </html>

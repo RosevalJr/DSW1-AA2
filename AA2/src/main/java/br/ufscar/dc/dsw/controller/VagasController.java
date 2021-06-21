@@ -1,13 +1,12 @@
 package br.ufscar.dc.dsw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.ufscar.dc.dsw.dao.IVagaDAO;
 import br.ufscar.dc.dsw.domain.Vaga;
@@ -40,8 +39,8 @@ public class VagasController {
 		return "vagas/listarTodas";
 	}
 	
-	@GetMapping("/buscar/{cidade}")
-	public String buscar(@PathVariable String cidade, ModelMap model) throws ParseException {
+	@PostMapping("/buscar")
+	public String buscar(@RequestParam(name="nome") String cidade, ModelMap model) throws ParseException {
 		
 		List<Vaga> todasVagas = vagaDAO.findAll();
 		List<Vaga> vagasAbertas =  new ArrayList<Vaga>();
