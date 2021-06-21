@@ -30,7 +30,7 @@ public class Profissional extends Usuario {
     @Column(nullable = false, length = 13)
     private String sexo = "Indeterminado";
     
-    @NotBlank(message = "{NotBlank.usuario.nascimento}")
+    @NotBlank(message = "{NotBlank.profissional.nascimento}")
 	@Column(nullable = false, length = 19)
 	private String nascimento;
     	
