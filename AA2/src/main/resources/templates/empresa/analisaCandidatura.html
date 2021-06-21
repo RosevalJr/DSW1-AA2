@@ -27,6 +27,7 @@
 							<th th:text="#{profissional.nascimento.label}"></th>
 							<th th:text="#{candidatura.status}"></th>
 							<th th:text="#{candidatura.curriculo}"></th>
+							<th th:text="#{ver.curriculo}"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,7 +62,8 @@
 					th:action="@{/empresas/statusCandidatura/{id} (id=${candidatura.id}) }">
 
 					<span th:text="#{link.entrevista.label}"></span> <input type="text"
-						name="linkEntrevista" /> <select id="status" name="status"
+						name="linkEntrevista" /> <br> <span th:text="#{info.adicional.label}"></span>  <input type="text"
+						name="infoAdicional" /> <select id="status" name="status"
 						class="form-control">
 						<option value="NaoSelecionado">Não Selecionado</option>
 						<option value="Entrevista">Entrevista</option>

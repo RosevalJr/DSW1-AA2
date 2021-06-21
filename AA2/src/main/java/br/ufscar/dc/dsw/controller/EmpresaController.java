@@ -107,26 +107,26 @@ public class EmpresaController {
 	
 	@GetMapping("/analisarCandidaturas/{id}")
 	public String analisarCandidatura(@PathVariable("id") Long id, ModelMap model, Principal principal) {
-		Vaga vaga = vagaDAO.findById(id).get();
+		Candidatura candidatura= candidaturaDAO.findById(id).get();
 		Empresa empresa = empresaDAO.findByUsername(principal.getName());
 		
 		
-		if(empresa.getId() != vaga.getEmpresa().getId()) {
+		if(empresa.getId() != candidatura.getVaga().getEmpresa().getId()) {
 			model.addAttribute("error", "403.error");
 			model.addAttribute("message", "403.message");
 			return "error";
 		}
 		
-		List<Candidatura> candidaturas = candidaturaDAO.findByVaga(vaga);
+		//List<Candidatura> candidaturas = candidaturaDAO.findByVaga(vaga);
 
-		model.addAttribute("candidatura", candidaturas);
-		model.addAttribute("queroid", candidaturas);
-		model.addAttribute("vaga", vaga);
+		model.addAttribute("candidatura", candidatura);
+		//model.addAttribute("queroid", candidaturas);
+		model.addAttribute("vaga", candidatura.getVaga());
 		return "empresa/analisaCandidatura";
 	}
 	
 	@PostMapping("/statusCandidatura/{id}")
-	public String statusCandidatura(@PathVariable("id") Long id, @RequestParam("status") String status, @RequestParam("linkEntrevista") String linkEntrevista, ModelMap model, Principal principal) throws UnsupportedEncodingException {
+	public String statusCandidatura(@PathVariable("id") Long id, @RequestParam("status") String status, @RequestParam("linkEntrevista") String linkEntrevista, @RequestParam("infoAdicional") String infoAdicional, ModelMap model, Principal principal) throws UnsupportedEncodingException {
 		// Aqui e necessario alterar o status da candidatura.
 		// Enviar o email correto para o concorrente da vaga.
 		Candidatura candidatura = candidaturaDAO.findById(id).get();
@@ -151,7 +151,8 @@ public class EmpresaController {
 		else {
 			candidatura.setStatus("Entrevista");
 			String cabecalho = "SELECIONADO !";
-			String corpo = "LINK DA ENTREVISTA: " + linkEntrevista;
+			String corpo = "LINK DA ENTREVISTA: " + linkEntrevista + "\n";
+			corpo = corpo + infoAdicional;
 			servicoEmail.send(from, to, cabecalho, corpo);
 			
 		}
