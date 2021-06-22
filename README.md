@@ -13,11 +13,10 @@ Atividade AA-2 da disciplina de Desenvolvimento de Software para Web 1
 1- Instalar e inicializar o banco de dados Mysql
 - Os integrantes deste grupo se basearem neste tutorial para realizar as configurações necessarias em um ambiente linux:
 https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04-pt
-- O Mysql server é inicializado e populado com o seguintes comandos, segundo as configurações utilizadas no arquivo GenericDAO.java do sistema:
+- O Mysql server é inicializado e populado com o seguintes comandos, segundo as configurações utilizadas no arquivo src/main/resources/application.properties do projeto:
 <pre><code>$ cd AA1
 $ mysql -u root -p
 $ root
-mysql> source ./db/MySql/create.sql
 </pre></code>
 - ** OBS **: Usuário e senha a serem utilizados pela aplicação podem ser facilmente alterados. No arquivo src/main/resources/application.properties do projeto é necessário alterar o usuário e senha escolhidos pela configuração Mysql, caso desejado.
 
